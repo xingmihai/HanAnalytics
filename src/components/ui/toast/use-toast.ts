@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, shallowRef } from 'vue'
 import type { Component, VNode } from 'vue'
 import type { ToastProps } from '.'
 
@@ -72,7 +72,13 @@ function addToRemoveQueue(toastId: string) {
   toastTimeouts.set(toastId, timeout)
 }
 
-const state = ref<State>({
+// 修复 TS2589：
+// 原写法 ref<State> 会对 State 做 UnwrapRef 深层解包，
+// 而 ToasterToast 里含 VNode / Component / (() => VNode) 等自引用复杂类型，
+// 在第 82 行赋值时触发类型实例化过深。
+// shallowRef 不做深层解包，state.value.toasts 直接是 ToasterToast[]，
+// 且本文件每次都是整体替换数组，不需要深层响应式，行为不变。
+const state = shallowRef<State>({
   toasts: [],
 })
 
