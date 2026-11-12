@@ -38,7 +38,7 @@ export async function onRequest({ request, env }) {
         doubles: [visitor ? 1 : 0, visit ? 1 : 0]
       }); // Response
   } catch (error) {
-    return Response.json({ success: false, error, message: "Han Analytics Send Error" }, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type" } });
+    return Response.json({ success: false, error, message: "数据上报失败" }, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type" } });
   }
-  return Response.json({ success: true, message: "Hello Han Analytics" }, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type" } });
+  return Response.json({ success: true, message: "数据上报成功" }, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type" } });
 }
